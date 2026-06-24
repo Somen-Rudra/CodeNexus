@@ -1,0 +1,136 @@
+/* ============================================================
+   Heatmap.css  —  styles for react-calendar-heatmap
+   Scoped with hm- prefix. Inherits global CSS vars.
+   ============================================================ */
+
+/* ── Card ───────────────────────────────────────────────────── */
+.hm-card {
+  background    : var(--bg-card);
+  border        : 1px solid var(--border-primary);
+  border-radius : var(--radius-md);
+  padding       : var(--space-5);
+  box-shadow    : var(--shadow-sm);
+  transition    : box-shadow var(--transition-fast);
+}
+.hm-card:hover { box-shadow: var(--shadow-md); }
+
+/* ── Header ─────────────────────────────────────────────────── */
+.hm-header {
+  display         : flex;
+  justify-content : space-between;
+  align-items     : center;
+  margin-bottom   : var(--space-4);
+}
+.hm-title {
+  font-size   : 14.5px;
+  font-weight : 600;
+  color       : var(--text-primary);
+}
+.hm-summary {
+  font-size : 12.5px;
+  color     : var(--text-muted);
+}
+.hm-summary strong {
+  color       : var(--text-primary);
+  font-weight : 600;
+}
+
+/* ── Wrap — constrain width so SVG stays compact ────────────── */
+.hm-wrap {
+  overflow-x     : auto;
+  overflow-y     : visible;
+  padding-bottom : 4px;
+  max-width      : 680px;
+}
+
+/* ── The SVG the library renders ────────────────────────────── */
+.react-calendar-heatmap {
+  width    : 100%;
+  overflow : visible;
+}
+
+/* Month & weekday text inside the SVG */
+.react-calendar-heatmap text {
+  font-family : var(--font-sans, sans-serif);
+  font-size   : 9px;
+  fill        : var(--text-muted, #888);
+}
+
+/* ── Cell colours (override library defaults) ───────────────── */
+/* The library adds class="hm-color-N" to each <rect>           */
+
+.react-calendar-heatmap .hm-color-0 {
+  fill : var(--bg-tertiary, #2a2a2a);
+}
+.react-calendar-heatmap .hm-color-1 {
+  fill : rgba(220, 20, 60, 0.22);
+}
+.react-calendar-heatmap .hm-color-2 {
+  fill : rgba(220, 20, 60, 0.44);
+}
+.react-calendar-heatmap .hm-color-3 {
+  fill : rgba(220, 20, 60, 0.70);
+}
+.react-calendar-heatmap .hm-color-4 {
+  fill   : #dc143c;
+  filter : drop-shadow(0 0 3px rgba(220,20,60,0.45));
+}
+
+/* hover highlight */
+.react-calendar-heatmap rect:hover {
+  stroke       : rgba(220, 20, 60, 0.8);
+  stroke-width : 1.5px;
+  cursor       : pointer;
+}
+
+/* ── Month separator — subtle gap between months ────────────── */
+/* react-calendar-heatmap already adds a 1-column gap per month */
+/* We just slightly widen it by adding a left margin to each    */
+/* month's first column rect via the SVG month-group transform  */
+
+/* ── Tooltip (react-tooltip v5) ─────────────────────────────── */
+.hm-tooltip {
+  background    : var(--bg-card, #1e1e1e) !important;
+  border        : 1px solid var(--border-primary, #333) !important;
+  border-radius : 6px !important;
+  color         : var(--text-primary, #fff) !important;
+  font-family   : var(--font-sans, sans-serif) !important;
+  font-size     : 12px !important;
+  font-weight   : 500 !important;
+  padding       : 6px 10px !important;
+  box-shadow    : 0 4px 14px rgba(0,0,0,0.35) !important;
+  pointer-events: none !important;
+  white-space   : nowrap !important;
+  z-index       : 9999 !important;
+}
+
+/* ── Legend ─────────────────────────────────────────────────── */
+.hm-legend {
+  display         : flex;
+  align-items     : center;
+  justify-content : flex-end;
+  gap             : 4px;
+  margin-top      : var(--space-3);
+}
+.hm-legend-label {
+  font-size   : 11px;
+  color       : var(--text-muted);
+  user-select : none;
+}
+.hm-legend-cell {
+  width         : 11px;
+  height        : 11px;
+  border-radius : 2px;
+}
+
+/* Map the hm-color-N classes onto the legend squares */
+.hm-legend-cell.hm-color-0 { background: var(--bg-tertiary, #2a2a2a); }
+.hm-legend-cell.hm-color-1 { background: rgba(220, 20, 60, 0.22); }
+.hm-legend-cell.hm-color-2 { background: rgba(220, 20, 60, 0.44); }
+.hm-legend-cell.hm-color-3 { background: rgba(220, 20, 60, 0.70); }
+.hm-legend-cell.hm-color-4 { background: #dc143c; }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .react-calendar-heatmap { min-width: 480px; }
+}

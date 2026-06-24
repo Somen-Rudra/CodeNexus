@@ -1,0 +1,61 @@
+/* ============================================================
+   DifficultyRings.css  —  scoped with dr- prefix
+   ============================================================ */
+
+/* Three rings in a row, evenly spaced */
+.dr-root {
+  display         : flex;
+  justify-content : space-around;
+  align-items     : center;
+  width           : 100%;
+  padding         : var(--space-2, 8px) 0;
+}
+
+/* Each ring + label stacked */
+.dr-item {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  gap            : 8px;
+}
+
+/* SVG wrapper — must be same size as the SVG so absolute label anchors correctly */
+.dr-ring-wrap {
+  position        : relative;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  /* width/height set via inline style from the component (equals `size` prop) */
+}
+
+/* The text sits dead-centre over the SVG */
+.dr-ring-label {
+  position        : absolute;
+  inset           : 0;
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+  justify-content : center;
+  gap             : 1px;
+  pointer-events  : none;
+}
+
+.dr-ring-solved {
+  font-size   : 15px;
+  font-weight : 700;
+  line-height : 1;
+}
+
+.dr-ring-total {
+  font-size   : 10px;
+  color       : var(--text-muted);
+  font-weight : 500;
+  line-height : 1;
+}
+
+/* Difficulty name label below ring */
+.dr-name {
+  font-size      : 11.5px;
+  font-weight    : 600;
+  letter-spacing : 0.02em;
+}

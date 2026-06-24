@@ -1,0 +1,575 @@
+/* ============================================================
+   dashboard.css  —  scoped with  db-  prefix
+   Inherits CSS variables from global theme file.
+   Package used for charts: recharts (npm install recharts)
+   ============================================================ */
+
+/* ── Layout shell ───────────────────────────────────────────── */
+.db-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.db-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-6) var(--space-6) var(--space-8);
+}
+
+.db-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* ── Card base ──────────────────────────────────────────────── */
+.db-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
+}
+.db-card:hover { box-shadow: var(--shadow-md); }
+
+.db-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.db-card-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.db-card-hint {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+/* right-column cards get a slightly tighter bottom margin */
+.db-card--right { margin-bottom: var(--space-5); }
+.db-card--right:last-child { margin-bottom: 0; }
+
+/* ── Link ───────────────────────────────────────────────────── */
+.db-link {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+.db-link:hover { color: var(--color-primary-hover); }
+
+/* ── Welcome + streak ───────────────────────────────────────── */
+.db-welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.db-greeting h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 3px;
+}
+.db-greeting p {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+}
+
+.db-streak-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.db-streak-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.db-flame {
+  color: #f97316;
+  background: rgba(249,115,22,.12);
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.db-streak-label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
+.db-streak-count { font-size: 20px; font-weight: 700; line-height: 1.2; }
+.db-streak-best  { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
+
+/* ── Heatmap cells ──────────────────────────────────────────── */
+.db-hcell {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  background: var(--border-primary);
+  transition: background var(--transition-fast);
+}
+.db-hcell--0 { background: var(--bg-tertiary); }
+.db-hcell--1 { background: rgba(220,20,60,.18); }
+.db-hcell--2 { background: rgba(220,20,60,.38); }
+.db-hcell--3 { background: rgba(220,20,60,.65); }
+.db-hcell--4 { background: var(--color-primary); }
+
+.db-mini-heatmap {
+  display: grid;
+  grid-template-columns: repeat(14, 11px);
+  gap: 3px;
+}
+
+/* large heatmap */
+.db-heatmap-wrap { margin-top: var(--space-3); }
+.db-heatmap {
+  display: grid;
+  grid-template-columns: repeat(28, 1fr);
+  gap: 4px;
+}
+.db-heatmap .db-hcell {
+  width: auto;
+  height: 13px;
+  border-radius: 3px;
+}
+
+.db-heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: var(--space-3);
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+.db-heatmap-legend .db-hcell { width: 11px; height: 11px; }
+
+/* ── Stats grid ─────────────────────────────────────────────── */
+.db-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.db-stat-card { padding: var(--space-4) var(--space-5); }
+
+.db-stat-label {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+
+.db-stat-val {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  line-height: 1;
+}
+
+.db-stat-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.db-stat-delta--up      { color: var(--success); }
+.db-stat-delta--neutral { color: var(--text-muted); }
+.db-stat-delta--link    { color: var(--color-primary); cursor: pointer; }
+
+/* ── Charts grid ────────────────────────────────────────────── */
+.db-charts-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.4fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  align-items: start;
+}
+
+/* area chart sizing */
+.db-chart-area {
+  height: 170px;
+  margin-top: var(--space-2);
+}
+
+/* select dropdown */
+.db-select {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-family: var(--font-sans);
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+.db-select:hover { border-color: var(--color-primary); }
+
+/* recharts tooltip */
+.db-tooltip {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-sans);
+}
+.db-tooltip__label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
+.db-tooltip__val   { font-size: 13px; font-weight: 700; color: var(--color-primary); }
+
+/* radial chart card */
+.db-card--radial { padding: var(--space-4) var(--space-4) var(--space-3); }
+.db-radial-wrap  { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); }
+
+.db-radial-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+}
+.db-radial-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.db-radial-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.db-radial-name { flex: 1; color: var(--text-secondary); }
+.db-radial-count { font-weight: 600; color: var(--text-primary); }
+
+/* ── Recommended section ────────────────────────────────────── */
+.db-section { margin-bottom: var(--space-6); }
+
+.db-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+}
+.db-section-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+.db-rec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.db-rec-card {
+  padding: var(--space-4);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  cursor: pointer;
+}
+.db-rec-card:hover {
+  border-color: var(--color-primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.db-rec-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.db-rec-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+  line-height: 1.4;
+}
+
+.db-rec-meta {
+  display: flex;
+  gap: var(--space-4);
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+.db-rec-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Icon box ───────────────────────────────────────────────── */
+.db-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Badges ─────────────────────────────────────────────────── */
+.db-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 10.5px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+.db-badge--easy   { color: var(--easy);   background: var(--easy-bg);   }
+.db-badge--medium { color: var(--medium); background: var(--medium-bg); }
+.db-badge--hard   { color: var(--hard);   background: var(--hard-bg);   }
+
+/* ── Right column list items ────────────────────────────────── */
+.db-list { display: flex; flex-direction: column; }
+
+.db-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border-secondary);
+  transition: background var(--transition-fast);
+}
+.db-list-item:last-child { border-bottom: none; padding-bottom: 0; }
+.db-list-item:first-child { padding-top: 0; }
+
+.db-list-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  flex: 1;
+}
+
+.db-list-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+
+.db-list-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  line-height: 1.4;
+}
+
+.db-list-sub {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+/* contest org badge */
+.db-org-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* countdown timer */
+.db-timer {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.db-btn-outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary-border);
+  padding: 5px 13px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+  flex-shrink: 0;
+}
+.db-btn-outline:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+.db-btn-outline:active { transform: translateY(0); }
+
+
+
+/* Heatmap cell with hover tooltip */
+.db-hcell--hoverable {
+  cursor: pointer;
+}
+ 
+.db-hcell-tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-md);
+  padding: 5px 9px;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+ 
+.db-hcell-tooltip strong {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+ 
+.db-hcell-tooltip span {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+ 
+/* Arrow under tooltip */
+.db-hcell-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: var(--border-primary);
+}
+ 
+ 
+/* ── Append to ai-page.css ───────────────────────────────────────────────── */
+ 
+/* Preloaded submission banner */
+.ai-preloaded-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  background: var(--color-primary-light);
+  border: 1px solid var(--color-primary-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-5);
+}
+ 
+.ai-preloaded-banner__left {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  flex: 1;
+  min-width: 0;
+  color: var(--color-primary);
+}
+ 
+.ai-preloaded-banner__title {
+  font-size: 13px;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+  line-height: 1.5;
+}
+ 
+.ai-preloaded-banner__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+ 
+.ai-context-banner__code {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-primary);
+  overflow-x: auto;
+  white-space: pre;
+  line-height: 1.6;
+}
+ 
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1280px) {
+  .db-charts-grid { grid-template-columns: 1fr 1fr; }
+  .db-card--radial { grid-column: 1 / -1; }
+  .db-radial-wrap { flex-direction: row; justify-content: center; gap: var(--space-6); }
+  .db-radial-legend { width: auto; min-width: 140px; }
+}
+
+@media (max-width: 1100px) {
+  .db-container { grid-template-columns: 1fr; }
+  .db-stats-grid { grid-template-columns: repeat(4, 1fr); }
+  .db-rec-grid { grid-template-columns: repeat(2, 1fr); }
+  .db-welcome { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 760px) {
+  .db-scroll { padding: var(--space-4); }
+  .db-charts-grid { grid-template-columns: 1fr; }
+  .db-card--radial { grid-column: auto; }
+  .db-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .db-heatmap { grid-template-columns: repeat(14, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .db-stats-grid { grid-template-columns: 1fr 1fr; }
+  .db-rec-grid { grid-template-columns: 1fr; }
+  .db-streak-card { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+  .db-mini-heatmap { grid-template-columns: repeat(7, 11px); }
+}

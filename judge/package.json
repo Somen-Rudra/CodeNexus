@@ -1,0 +1,20 @@
+{
+  "name": "judge-server",
+  "version": "3.0.0",
+  "description": "Fast secure code execution judge server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "build-image": "docker build -t judge-sandbox:latest ."
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "morgan": "^1.11.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

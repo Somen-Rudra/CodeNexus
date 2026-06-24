@@ -1,0 +1,166 @@
+/* ═══════════════════════════════════════
+   PROFILE POPUP
+═══════════════════════════════════════ */
+
+/* Position is now handled entirely by JS (getBoundingClientRect)
+   via createPortal — do NOT set position/top/left/bottom here */
+.prof-popup {
+  width: 240px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: popup-in 0.15s ease;
+}
+
+/* prof-popup--collapsed is no longer needed (JS handles offset),
+   but kept for backwards safety */
+.prof-popup--collapsed {
+  /* intentionally empty */
+}
+
+@keyframes popup-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ── */
+.prof-popup__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.prof-popup__avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.prof-popup__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.prof-popup__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prof-popup__handle {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Plan row ── */
+.prof-popup__plan {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 var(--space-4) var(--space-3);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.prof-popup__plan .ti {
+  color: var(--medium);
+  font-size: 13px;
+}
+
+.prof-popup__upgrade {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  padding: 2px 8px;
+  border: 1px solid var(--color-primary-border);
+  border-radius: 99px;
+  transition: background var(--transition-fast);
+}
+
+.prof-popup__upgrade:hover {
+  background: var(--color-primary-light);
+}
+
+/* ── Divider ── */
+.prof-popup__divider {
+  height: 1px;
+  background: var(--border-primary);
+  margin: 0;
+}
+
+/* ── Section + items ── */
+.prof-popup__section {
+  padding: var(--space-1) 0;
+}
+
+.prof-popup__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 8px var(--space-4);
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.prof-popup__item .ti {
+  font-size: 16px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: color var(--transition-fast);
+}
+
+.prof-popup__item:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.prof-popup__item:hover .ti {
+  color: var(--text-secondary);
+}
+
+/* Danger — logout */
+.prof-popup__item--danger {
+  color: var(--hard);
+}
+
+.prof-popup__item--danger .ti {
+  color: var(--hard);
+}
+
+.prof-popup__item--danger:hover {
+  background: var(--hard-bg);
+  color: var(--hard);
+}
+
+.prof-popup__item--danger:hover .ti {
+  color: var(--hard);
+}

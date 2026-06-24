@@ -1,0 +1,197 @@
+:root {
+  /* ===== BRAND ===== */
+  --color-primary: #dc143c;
+  --color-primary-hover: #c11235;
+  --color-primary-light: #fde7ec;
+  --color-primary-border: #f3b6c3;
+
+  /* ===== LIGHT THEME ===== */
+  --bg-primary: #ffffff;
+  --bg-secondary: #fafafa;
+  --bg-tertiary: #f5f5f5;
+  --bg-card: #ffffff;
+  --bg-hover: #f8f8f8;
+
+  --text-primary: #111111;
+  --text-secondary: #525252;
+  --text-muted: #737373;
+  --text-inverse: #ffffff;
+
+  --border-primary: #e5e5e5;
+  --border-secondary: #f0f0f0;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  /* ===== STATUS ===== */
+  --easy: #16a34a;
+  --easy-bg: #dcfce7;
+
+  --medium: #f59e0b;
+  --medium-bg: #fef3c7;
+
+  --hard: #ef4444;
+  --hard-bg: #fee2e2;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+
+  /* ===== RADIUS ===== */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* ===== TRANSITIONS ===== */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.35s ease;
+
+  /* ===== SPACING ===== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* ===== FONT ===== */
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:
+    "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+
+  /* ===== EDITOR ===== */
+  --editor-bg: #1e1e1e;
+  --editor-gutter: #252526;
+  --editor-selection: rgba(220, 20, 60, 0.25);
+  --editor-line-highlight: rgba(255, 255, 255, 0.04);
+  --editor-line-number: #858585;
+  --editor-cursor: #dc143c;
+
+  /* ===== LAYOUT ===== */
+  --header-height: 48px;
+  --tab-height: 40px;
+  --panel-min-width: 280px;
+
+  /* ===== TABS ===== */
+  --tab-bar-bg: #ffffff;
+  --tab-inactive: #b6b3b4;
+  --tab-inactive-hover-bg: rgba(220, 20, 60, 0.12);
+  --tab-inactive-hover-text: #ffffff;
+  --tab-content-bg: #061210;
+
+  /* ===== HEATMAP ===== */
+  --hm-cell-size : 13px;
+  --hm-gap       : 3px;
+  --hm-radius    : 3px;
+
+}
+
+[data-theme="dark"] {
+  --color-primary: #dc143c;
+  --color-primary-hover: #f02652;
+  --color-primary-light: rgba(220, 20, 60, 0.12);
+  --color-primary-border: rgba(220, 20, 60, 0.25);
+
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #111111;
+  --bg-card: #0d0d0d;
+  --bg-hover: #171717;
+
+  --text-primary: #fafafa;
+  --text-secondary: #d4d4d4;
+  --text-muted: #a3a3a3;
+  --text-inverse: #000000;
+
+  --border-primary: #262626;
+  --border-secondary: #1a1a1a;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.6);
+
+  --easy: #22c55e;
+  --easy-bg: rgba(34, 197, 94, 0.12);
+
+  --medium: #fbbf24;
+  --medium-bg: rgba(251, 191, 36, 0.12);
+
+  --hard: #f87171;
+  --hard-bg: rgba(248, 113, 113, 0.12);
+
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --info: #60a5fa;
+
+  /* ===== TABS ===== */
+  --tab-bar-bg: #0d0105;
+  --tab-inactive: #8c5060;
+  --tab-inactive-hover-bg: rgba(220, 20, 60, 0.15);
+  --tab-inactive-hover-text: #f9a0b0;
+  --tab-content-bg: #080004;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition:
+    background var(--transition-normal),
+    color var(--transition-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-primary);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+a{
+  text-decoration: none;
+  
+}

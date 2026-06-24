@@ -1,0 +1,70 @@
+.Toastify__toast {
+  position: relative;
+  overflow: hidden;
+
+  /* background: #530a0ab6 !important;
+  color: white !important; */
+
+  border: 1px solid rgba(232, 0, 28, 0.25);
+  border-radius: 14px;
+
+  min-height: 64px;
+
+  box-shadow: 0 0 18px rgba(232, 0, 28, 0.12);
+
+  backdrop-filter: blur(10px);
+}
+
+/* dragon bg */
+.Toastify__toast::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image: url("../assets/toast.png");
+  background-repeat: no-repeat;
+  background-position: 50% 40%;
+
+  background-size: cover;
+
+  opacity: 0.8;
+
+  pointer-events: none;
+}
+
+/* body */
+.Toastify__toast-body {
+  font-size: 0.95rem;
+  font-weight: 500;
+  z-index: 2;
+}
+
+/* close button */
+.Toastify__close-button {
+  color: #ff2147;
+  opacity: 1;
+}
+
+/* progress bar */
+.Toastify__progress-bar {
+  background: linear-gradient(90deg, #ff002f, #ff4d67);
+}
+
+/* optional glow on hover */
+.Toastify__toast:hover {
+  border-color: rgba(255, 0, 40, 0.45);
+
+  box-shadow: 0 0 24px rgba(232, 0, 28, 0.2);
+}
+
+.Toastify__close-button {
+  color: #ff2147 !important;
+  opacity: 1;
+}
+
+.Toastify__close-button:hover {
+  color: #ff4d67 !important;
+}
+
+ 

@@ -1,0 +1,195 @@
+/* ROOT STRUCTURE */
+.editor-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(220, 20, 60, 0.12),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(220, 20, 60, 0.08),
+      transparent 30%
+    ),
+    var(--bg-primary);
+  overflow: hidden;
+}
+
+/* OUTSIDE FRAME CONTAINER */
+.editor-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(220, 20, 60, 0.18);
+  box-shadow:
+    0 0 25px rgba(220, 20, 60, 0.08),
+    inset 0 0 40px rgba(220, 20, 60, 0.03);
+  background: var(--bg-primary);
+}
+
+/* TOOLBAR */
+.editor-toolbar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background-color: var(--bg-secondary);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(220, 20, 60, 0.15);
+}
+
+.dropdown-container {
+  color: var(--text-primary);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+}
+
+.styled-select {
+  margin-left: 10px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid rgba(220, 20, 60, 0.3);
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: "JetBrains Mono", monospace;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.styled-select:focus {
+  border-color: var(--color-primary);
+}
+
+.run-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+}
+
+.run-button:hover {
+  background: var(--color-primary-hover);
+}
+
+.run-button:active {
+  transform: scale(0.97);
+}
+
+/* EDITOR AREA */
+.monaco-container {
+  flex-grow: 1;
+  position: relative;
+  width: 100%;
+}
+
+/* BACKGROUND IMAGE OVERLAY */
+.editor-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center, rgba(220, 20, 60, 0.12)),
+    url("../assets/editor.png");
+  background-size: cover;
+  background-position: 60% 30%;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+  filter: saturate(1.4) contrast(1.2);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* PULSE GLOW */
+.editor-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 70% 50%,
+    rgba(220, 20, 60, 0.1),
+    transparent 40%
+  );
+  animation: pulse 4s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.editor-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* Monaco stacking */
+.editor-wrapper .overflow-guard {
+  position: relative;
+  z-index: 2;
+}
+
+/*
+  DO NOT force background: transparent on the monaco editor.
+  The editor theme (crimson / daybreak) controls its own background.
+  Only the decorative overlay pseudo-elements should be transparent.
+*/
+
+.submit-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #16a34a; /* green-600 — adapt to your design tokens */
+  color: #fff;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
+}
+.submit-button:hover:not(:disabled) {
+  background: #15803d;
+}
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.submit-button.submitting {
+  opacity: 0.75;
+  cursor: not-allowed;
+}

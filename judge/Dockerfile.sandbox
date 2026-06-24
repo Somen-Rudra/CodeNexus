@@ -1,0 +1,34 @@
+FROM debian:bookworm-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    python3 \
+    nodejs \
+    default-jdk \
+    curl \
+    gnupg \
+    unzip \
+    coreutils \
+    findutils \
+    libncurses6 \
+    libncursesw6
+
+# Swift — install from official binaries
+RUN curl -fsSL https://download.swift.org/swift-6.0.3-release/debian12/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE-debian12.tar.gz \
+    | tar -xz --strip-components=1 -C /usr/local
+
+# Kotlin — kotlinc compiler
+RUN curl -fsSL https://github.com/JetBrains/kotlin/releases/download/v2.0.21/kotlin-compiler-2.0.21.zip \
+    -o /tmp/kotlin.zip && \
+    unzip /tmp/kotlin.zip -d /usr/local && \
+    rm /tmp/kotlin.zip
+
+ENV PATH="/usr/local/usr/bin:/usr/local/kotlinc/bin:/usr/bin:/bin:$PATH"
+
+RUN rm -rf /var/lib/apt/lists/*
+
+RUN groupadd -g 1000 sandbox && \
+    useradd -u 1000 -g sandbox -M -s /bin/false sandbox
+
+USER 1000:1000

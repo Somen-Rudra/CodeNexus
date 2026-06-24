@@ -1,0 +1,93 @@
+.terminal-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  padding: 15px;
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  background: #050101;
+  border-radius: 12px;
+
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Background image */
+.terminal-panel::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-repeat: no-repeat;
+  background-position: center right;
+  background-size: cover;
+
+  opacity: 0.25;
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Dark overlay */
+.terminal-panel::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at right center,
+      rgba(232, 0, 28, 0.08),
+    ),
+    linear-gradient(
+      to right,
+      rgba(5, 1, 1, 0.96),
+      rgba(5, 1, 1, 0.85)
+    );
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+.terminal-output {
+  position: relative;
+  z-index: 2;
+
+  margin: 0;
+  white-space: pre-wrap;
+  tab-size: 4;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.terminal-success {
+  color: #00ffcc;
+  text-shadow: 0 0 8px rgba(0, 255, 204, 0.25);
+}
+
+.terminal-error {
+  color: #ff355e;
+  text-shadow: 0 0 8px rgba(255, 53, 94, 0.25);
+}
+
+/* Crimson scrollbar */
+.terminal-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-panel::-webkit-scrollbar-track {
+  background: #090202;
+}
+
+.terminal-panel::-webkit-scrollbar-thumb {
+  background: rgba(232, 0, 28, 0.4);
+  border-radius: 999px;
+}
+
+.terminal-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 0, 28, 0.7);
+}
