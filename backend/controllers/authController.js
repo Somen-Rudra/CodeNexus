@@ -42,6 +42,15 @@ const isRateLimited = async (redis, key) => {
   return !!exists;
 };
 
+/**
+ * Normalizes an email the same way Mongoose's schema-level
+ * `lowercase`/`trim` transforms would when a User document is saved.
+ * Must be applied BEFORE any findOne({ email }) lookup or Redis key
+ * that includes the email, since Mongoose transforms only apply on
+ * save/create, not on raw queries.
+ */
+const normalizeEmail = (email) => String(email).toLowerCase().trim();
+
 // ─── Register ─────────────────────────────────────────────────────────────────
 
 export const registerUser = TryCatch(async (req, res) => {
@@ -55,7 +64,8 @@ export const registerUser = TryCatch(async (req, res) => {
       .json({ success: false, message: firstMessage, errors: allErrors });
   }
 
-  const { name, email, password } = validation.data;
+  const { name, password } = validation.data;
+  const email = normalizeEmail(validation.data.email);
   const redis = getRedis();
 
   // Rate-limit: 1 register attempt per IP+email per minute
@@ -167,7 +177,8 @@ export const loginUser = TryCatch(async (req, res) => {
       .json({ success: false, message: firstMessage, errors: allErrors });
   }
 
-  const { email, password } = validation.data;
+  const { password } = validation.data;
+  const email = normalizeEmail(validation.data.email);
   const redis = getRedis();
 
   // Rate-limit: 1 login attempt per IP+email per minute
@@ -221,13 +232,16 @@ export const loginUser = TryCatch(async (req, res) => {
 
 export const verifyOtp = TryCatch(async (req, res) => {
   // Sanitize and validate inputs
-  const { email, otp } = sanitize(req.body);
+  const sanitizedBody = sanitize(req.body);
+  const { otp } = sanitizedBody;
 
-  if (!email || !otp) {
+  if (!sanitizedBody.email || !otp) {
     return res
       .status(400)
       .json({ success: false, message: "Email and OTP are required." });
   }
+
+  const email = normalizeEmail(sanitizedBody.email);
 
   // Validate OTP format: must be exactly 6 digits
   if (!/^\d{6}$/.test(otp)) {
