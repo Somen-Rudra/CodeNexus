@@ -40,6 +40,10 @@
   --info: #3b82f6;
   --info-bg: #dbeafe;
 
+  --edit:#3b82f6;
+  --premium: gold;
+  --publish: green;
+
   /* Extra semantic accents (verdict/role/mode badges) */
   --accent-purple: #9333ea;
   --accent-purple-bg: #f3e8ff;
