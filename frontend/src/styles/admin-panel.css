@@ -29,12 +29,14 @@
   font-weight: 700;
   color: var(--color-primary);
   cursor: default;
+  white-space: nowrap;
 }
 
 .adm-header-divider {
   width: 1px;
   height: 20px;
   background: var(--border-primary);
+  flex-shrink: 0;
 }
 
 .adm-header-title {
@@ -50,6 +52,14 @@
   gap: var(--space-2);
   font-size: 13px;
   color: var(--text-secondary);
+  min-width: 0;
+}
+
+.adm-header-user-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 160px;
 }
 
 /* ─── Avatar ─────────────────────────────────────────────────────────────── */
@@ -167,6 +177,7 @@
   align-items: center;
   gap: 14px;
   box-shadow: var(--shadow-sm);
+  min-width: 0;
 }
 
 .adm-stat-icon {
@@ -219,8 +230,10 @@
 
 .adm-card--table {
   padding: 0;
-  overflow: hidden;
   margin-bottom: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .adm-card-title {
@@ -245,6 +258,7 @@
   padding: 9px 0;
   border-bottom: 1px solid var(--border-secondary);
   font-size: 13px;
+  gap: var(--space-2);
 }
 
 .adm-kv-row:last-child {
@@ -278,6 +292,7 @@
   width: 56px;
   font-size: 12px;
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 .adm-diff-track {
@@ -300,6 +315,7 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--text-secondary);
+  flex-shrink: 0;
 }
 
 /* ─── Toolbar ────────────────────────────────────────────────────────────── */
@@ -367,6 +383,7 @@
 .adm-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-1);
   padding: 7px 14px;
   border-radius: var(--radius-xs);
@@ -430,6 +447,7 @@
   color: var(--text-muted);
   cursor: pointer;
   transition: background var(--transition-fast), color var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .adm-icon-btn:hover {
@@ -457,6 +475,8 @@
 
 .adm-table {
   width: 100%;
+  min-width: 720px; /* forces horizontal scroll inside .adm-card--table on small screens
+                        instead of squeezing columns unreadable */
   border-collapse: collapse;
   font-size: 13px;
   table-layout: fixed;
@@ -516,6 +536,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .adm-user-name {
@@ -530,6 +551,10 @@
   font-size: 11px;
   color: var(--text-muted);
   margin-top: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 220px;
 }
 
 .adm-you-badge {
@@ -568,6 +593,8 @@
   justify-content: center;
   gap: var(--space-4);
   padding: var(--space-4) 0;
+  flex-wrap: wrap;
+  text-align: center;
 }
 
 .adm-page-info {
@@ -600,6 +627,7 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  padding: var(--space-4);
 }
 
 .adm-modal {
@@ -608,7 +636,7 @@
   border-radius: var(--radius-md);
   padding: 28px var(--space-6);
   max-width: 380px;
-  width: 90%;
+  width: 100%;
   text-align: center;
   box-shadow: var(--shadow-lg);
 }
@@ -628,6 +656,7 @@
   display: flex;
   gap: 10px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* ─── Toast ──────────────────────────────────────────────────────────────── */
@@ -636,6 +665,7 @@
   position: fixed;
   bottom: var(--space-6);
   right: var(--space-6);
+  left: var(--space-6);
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -646,6 +676,8 @@
   z-index: 99999;
   box-shadow: var(--shadow-md);
   animation: adm-slide-in 0.2s ease;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 .adm-toast--success {
@@ -683,11 +715,12 @@
   margin-top: var(--space-2);
 }
 
-.adm-field { display: flex; flex-direction: column; gap: 4px; }
+.adm-field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .adm-field-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
 .adm-field-hint { font-size: 11px; color: var(--text-muted); }
 
 .adm-input, .adm-textarea {
+  width: 100%;
   background: var(--bg-secondary);
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-sm);
@@ -716,8 +749,9 @@
   border-radius: 999px;
   padding: 2px 8px;
   font-size: 12px;
+  max-width: 100%;
 }
-.adm-chip button { display: flex; color: inherit; }
+.adm-chip button { display: flex; color: inherit; flex-shrink: 0; }
 .adm-chip-input {
   border: none; background: transparent; outline: none;
   color: var(--text-primary); font-size: 13px; flex: 1; min-width: 120px;
@@ -725,7 +759,7 @@
 
 .adm-list-editor { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
 .adm-list-row { display: flex; gap: 8px; align-items: center; }
-.adm-list-row .adm-input { flex: 1; }
+.adm-list-row .adm-input { flex: 1; min-width: 0; }
 
 .adm-object-row {
   border: 1px solid var(--border-primary);
@@ -746,6 +780,7 @@
   padding: 6px 12px;
   font-size: 12px;
   text-transform: uppercase;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 .adm-lang-toggle--active {
   background: var(--color-primary);
@@ -759,6 +794,7 @@
 .adm-form-actions {
   display: flex; justify-content: flex-end; gap: 10px;
   margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .adm-btn--sm { padding: 4px 10px; font-size: 12px; }
@@ -776,16 +812,19 @@
 
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
 
+/* Tablet: stack the two-column overview cards */
 @media (max-width: 900px) {
   .adm-section-grid {
     grid-template-columns: 1fr;
   }
 }
 
+/* Small tablet / large phone: sidebar becomes a top bar, body stacks */
 @media (max-width: 768px) {
   .adm-body {
     flex-direction: column;
     padding: var(--space-3);
+    gap: var(--space-3);
   }
 
   .adm-sidenav {
@@ -806,9 +845,84 @@
     width: auto;
     flex: 1;
     justify-content: center;
+    min-width: 84px;
   }
 
   .adm-stat-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .adm-header {
+    padding: 0 var(--space-4);
+    gap: var(--space-2);
+  }
+
+  .adm-header-brand span:not(.adm-header-user-name) {
+    display: inline;
+  }
+}
+
+/* Phone: tighten header, collapse toolbars/pagination to full-width stacks */
+@media (max-width: 480px) {
+  .adm-header {
+    padding: 0 var(--space-3);
+    height: 52px;
+  }
+
+  .adm-header-user-name {
+    max-width: 90px;
+  }
+
+  .adm-page-title {
+    font-size: 17px;
+    margin-bottom: var(--space-3);
+  }
+
+  .adm-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .adm-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .adm-search-wrap,
+  .adm-select,
+  .adm-toolbar > .adm-btn {
+    width: 100%;
+  }
+
+  .adm-nav-btn-label {
+    display: none;
+  }
+
+  .adm-nav-btn {
+    padding: 10px;
+    min-width: 44px;
+  }
+
+  .adm-pagination {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .adm-modal {
+    padding: 22px var(--space-4);
+  }
+
+  .adm-form-actions {
+    justify-content: stretch;
+  }
+
+  .adm-form-actions .adm-btn {
+    flex: 1;
+  }
+
+  .adm-toast {
+    left: var(--space-3);
+    right: var(--space-3);
+    bottom: var(--space-3);
+    max-width: none;
   }
 }

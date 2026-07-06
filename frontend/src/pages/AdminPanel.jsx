@@ -40,12 +40,14 @@ const DIFFICULTY_COLORS = {
   hard:   { color: "var(--hard)",   bg: "var(--hard-bg)"   },
 };
 
+/* All verdict/role/mode colors now resolve through theme CSS vars so they
+   stay in sync with light/dark mode instead of hardcoded hex values. */
 const VERDICT_COLORS = {
-  accepted:            { color: "#16a34a", bg: "#dcfce7" },
-  wrong_answer:        { color: "#dc2626", bg: "#fee2e2" },
-  time_limit_exceeded: { color: "#d97706", bg: "#fef3c7" },
-  runtime_error:       { color: "#9333ea", bg: "#f3e8ff" },
-  compile_error:       { color: "#0891b2", bg: "#cffafe" },
+  accepted:            { color: "var(--easy)",         bg: "var(--easy-bg)"         },
+  wrong_answer:        { color: "var(--hard)",          bg: "var(--hard-bg)"         },
+  time_limit_exceeded: { color: "var(--warning)",       bg: "var(--medium-bg)"       },
+  runtime_error:       { color: "var(--accent-purple)", bg: "var(--accent-purple-bg)" },
+  compile_error:       { color: "var(--accent-cyan)",   bg: "var(--accent-cyan-bg)"  },
 };
 
 const VERDICT_LABELS = {
@@ -110,7 +112,7 @@ const DiffBadge = ({ difficulty }) => {
 };
 
 const VerdictBadge = ({ verdict }) => {
-  const s = VERDICT_COLORS[verdict] ?? { color: "#6b7280", bg: "#f3f4f6" };
+  const s = VERDICT_COLORS[verdict] ?? { color: "var(--text-muted)", bg: "var(--bg-tertiary)" };
   return <Badge text={VERDICT_LABELS[verdict] ?? verdict} color={s.color} bg={s.bg} />;
 };
 
@@ -560,8 +562,8 @@ function UsersTab({ toast, currentUserId }) {
                   <td>
                     <Badge
                       text={u.role}
-                      color={u.role === "admin" ? "#7c3aed" : "var(--text-secondary)"}
-                      bg={u.role === "admin" ? "#ede9fe" : "var(--bg-tertiary)"}
+                      color={u.role === "admin" ? "var(--accent-purple)" : "var(--text-secondary)"}
+                      bg={u.role === "admin" ? "var(--accent-purple-bg)" : "var(--bg-tertiary)"}
                     />
                   </td>
                   <td>
@@ -759,8 +761,8 @@ function SubmissionsTab({ toast, navigate }) {
                   <td>
                     <Badge
                       text={s.mode}
-                      color={s.mode === "submit" ? "#7c3aed" : "var(--info)"}
-                      bg={s.mode === "submit" ? "#ede9fe" : "#dbeafe"}
+                      color={s.mode === "submit" ? "var(--accent-purple)" : "var(--info)"}
+                      bg={s.mode === "submit" ? "var(--accent-purple-bg)" : "var(--info-bg)"}
                     />
                   </td>
                   <td className="adm-td-num">{fmtRelative(s.createdAt)}</td>
@@ -828,7 +830,7 @@ export default function AdminPanel() {
 
         <div className="adm-header-user">
           <MdAccountCircle size={20} />
-          <span>{user.name}</span>
+          <span className="adm-header-user-name">{user.name}</span>
         </div>
       </header>
 
@@ -843,7 +845,7 @@ export default function AdminPanel() {
                 onClick={() => setTab(key)}
               >
                 <Icon size={17} />
-                {label}
+                <span className="adm-nav-btn-label">{label}</span>
               </button>
             ))}
           </div>
