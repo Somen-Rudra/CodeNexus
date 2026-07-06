@@ -15,6 +15,7 @@ import Register from "./pages/Register";
 import VerifyEmail from "./pages/VerifyEmail";
 import SubmissionsPage from "./pages/SubmissionPage";
 import AdminPanel from "./pages/AdminPanel";
+import ProblemForm from "./pages/ProblemForm";
 
 export default function App() {
   const { user, loading } = useAuth();
@@ -53,6 +54,8 @@ export default function App() {
             element={<AICodeExplanation />}
           />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/admin/problems/new" element={<ProblemForm />} />
+          <Route path="/admin/problems/:slug/edit" element={<ProblemForm />} />
           <Route path="/submissions" element={<SubmissionsPage />} />
           <Route path="/contests" element={<Contest />} />
           <Route path="*" element={<Navigate to="/" replace />} />

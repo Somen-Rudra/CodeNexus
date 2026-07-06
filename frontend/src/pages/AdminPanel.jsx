@@ -22,6 +22,7 @@ import {
   MdShield,
   MdStar,
   MdAdminPanelSettings,
+  MdAccountCircle,
 } from "react-icons/md";
 
 /* ─── Constants ─────────────────────────────────────────────────────────── */
@@ -219,7 +220,9 @@ function ProblemsTab({ toast, navigate }) {
   const [loading,    setLoading]    = useState(true);
   const [search,     setSearch]     = useState("");
   const [difficulty, setDifficulty] = useState("");
-  const [published,  setPublished]  = useState("");
+  // "true" | "false" | "all" — default to "true" so the admin sees published
+  // problems first, matching the backend default.
+  const [published,  setPublished]  = useState("true");
   const [page,       setPage]       = useState(1);
   const [pagination, setPagination] = useState(null);
   const [toggling,   setToggling]   = useState(null);
@@ -232,7 +235,7 @@ function ProblemsTab({ toast, navigate }) {
       const params = new URLSearchParams({ page, limit: 20 });
       if (search)     params.set("search",     search);
       if (difficulty) params.set("difficulty", difficulty);
-      params.set("published", published !== "" ? published : "true");
+      params.set("published", published);
 
       const res = await API.get(`/problemSet?${params}`);
       setProblems(res.data.data ?? []);
@@ -307,7 +310,7 @@ function ProblemsTab({ toast, navigate }) {
         </select>
 
         <select className="adm-select" value={published} onChange={e => { setPublished(e.target.value); setPage(1); }}>
-          <option value="">Published</option>
+          <option value="all">All statuses</option>
           <option value="true">Published</option>
           <option value="false">Draft</option>
         </select>
@@ -822,9 +825,10 @@ export default function AdminPanel() {
           Admin Panel
         </span>
         <div className="adm-header-divider" />
-         
+
         <div className="adm-header-user">
-           
+          <MdAccountCircle size={20} />
+          <span>{user.name}</span>
         </div>
       </header>
 

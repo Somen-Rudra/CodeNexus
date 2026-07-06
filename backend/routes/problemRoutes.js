@@ -14,6 +14,7 @@ import {
   togglePublishProblem,
   getProblemEditorData,
   getRecommended,
+  getProblemForEdit
 } from "../controllers/problemController.js";
 
 import {
@@ -49,6 +50,7 @@ problemRouter.get( "/:slug/submissions", isAuthenticated, getSubmissionsForProbl
 /* =========================
    Admin Routes (auth + admin role required)
 ========================= */
+problemRouter.get("/:slug/manage", isAuthenticated, checkRole("admin"), getProblemForEdit);
 problemRouter.post("/",               isAuthenticated, checkRole("admin"), createProblem);
 problemRouter.patch("/:slug/publish", isAuthenticated, checkRole("admin"), togglePublishProblem);
 problemRouter.patch("/:slug",         isAuthenticated, checkRole("admin"), updateProblem);

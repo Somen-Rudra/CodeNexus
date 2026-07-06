@@ -12,6 +12,7 @@ const PROBLEM_LIST_FIELDS = `
   acceptancePercentage
   isPremium
   isFeatured
+  isPublished
 `;
 
 const FEATURED_FIELDS = `
@@ -50,7 +51,7 @@ export const getProblems = async (req, res) => {
       acceptanceMin,
       acceptanceMax,
 
-      // Published filter (admin-facing)
+      // Published filter (admin-facing): "true" | "false" | "all"
       published = "true",
     } = req.query;
 
@@ -61,8 +62,11 @@ export const getProblems = async (req, res) => {
 
     const filter = {};
 
-    // Always enforce published; default to true
-    filter.isPublished = published === "false" ? false : true;
+    // Published: "all" means no filter at all (admin wants to see everything).
+    // Anything else defaults to true unless explicitly "false".
+    if (published !== "all") {
+      filter.isPublished = published === "false" ? false : true;
+    }
 
     // Difficulty: support single value AND comma-separated multi-select
     if (difficulty) {
@@ -606,3 +610,19 @@ export const getRecommended = TryCatch(async (req, res) => {
 
   return res.status(200).json({ success: true, problems });
 });
+
+// ─── GET /problemSet/:slug/manage (admin only, no publish filter) ──────────
+export const getProblemForEdit = async (req, res) => {
+  try {
+    const slug = req.params.slug?.trim();
+    if (!slug) return res.status(400).json({ success: false, message: "Slug is required" });
+
+    const problem = await Problem.findOne({ slug }).lean();
+    if (!problem) return res.status(404).json({ success: false, message: "Problem not found" });
+
+    return res.status(200).json({ success: true, data: problem });
+  } catch (error) {
+    console.error("getProblemForEdit error:", error);
+    return res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
