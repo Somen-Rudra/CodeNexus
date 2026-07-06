@@ -50,8 +50,8 @@ const layoutJson = {
             type: "tabset",
             weight: 40,
             children: [
-              { type: "tab", name: "Testcases", component: "TestCases" },
-              { type: "tab", name: "Output", component: "Output" },
+              { type: "tab", name: "Testcases", component: "TestCases" }
+               
             ],
           },
         ],

@@ -476,7 +476,7 @@ function ProblemsTab({ toast, navigate }) {
                   <td>
                     <span
                       className="adm-problem-title"
-                      onClick={() => navigate(`/problems/${p.slug}`)}
+                      onClick={() => navigate(`/problemSet/${p.slug}`)}
                     >
                       {p.title}
                     </span>
